@@ -57,7 +57,7 @@ def generate_password(length=12,
 
 def get_passwords():
     purp=input("what was its purpose , why you created it? ")
-    c.execute("SELECT password, created_at FROM passwords WHERE  purpose= ? ", (purp))
+    c.execute("SELECT password, created_at FROM passwords WHERE  purpose= ? ", (purp,))
     passwords = c.fetchall()
 
     return passwords
