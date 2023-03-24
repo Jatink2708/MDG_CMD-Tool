@@ -1,3 +1,6 @@
+The main aim for CMD tool is to generate the password as per user needs and specifications, store it in a database with its purpose and other crieterions, and incase the user forgets it , he/she will be able to retrieve it safely, with a correct answer of few questions. 
+
+
 I have use Python and the fire module to make my code executable in the CMD:
 
 Here is the detailed explanation of my code:
