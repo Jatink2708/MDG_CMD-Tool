@@ -2,7 +2,7 @@ import random
 import string
 import fire
 import sqlite3
-from datetime import date 
+
 
 
 # Connect to SQLite database
@@ -15,9 +15,7 @@ c.execute('''
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         password TEXT NOT NULL,
         purpose TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        date DATE
-     
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
 ''')
 
@@ -51,18 +49,15 @@ def generate_password(length=12,
 
     # Insert the password into the database
     purp = input('Enter the purpose of the password: ')
-    dates =  date.today()
-    c.execute('INSERT INTO passwords (password, purpose,date) VALUES (?, ?, ?)', (password, purp,dates))
+    c.execute('INSERT INTO passwords (password,purpose) VALUES (?, ?)', (password,purp))
     conn.commit()
 
     return password
 
 
 def get_passwords():
-    substr = input("Enter the substring of the password you want to retrieve (minimum length=3): ")
-    dateee = input("Enter the date on which you created the password in YYYY-MM-DD format: ")
     purp=input("what was its purpose , why you created it? ")
-    c.execute("SELECT * FROM passwords WHERE password LIKE ? AND date = ? AND purpose= ? ", ('%' + substr + '%', dateee, purp))
+    c.execute("SELECT password, created_at FROM passwords WHERE  purpose= ? ", (purp))
     passwords = c.fetchall()
 
     return passwords
